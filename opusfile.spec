@@ -1,6 +1,6 @@
 Name:		opusfile
 Version:	0.4
-Release:	2
+Release:	3
 Summary:	A high-level API for decoding and seeking within .opus files
 Group:		System/Libraries
 License:	BSD
