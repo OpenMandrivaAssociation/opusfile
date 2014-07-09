@@ -1,14 +1,19 @@
-Name:		opusfile
-Version:	0.4
-Release:	6
+%define major 0
+%define libname %mklibname %{name} %{major}
+%define liburl %mklibname opusurl %{major}
+%define devname %mklibname %{name} -d
+
 Summary:	A high-level API for decoding and seeking within .opus files
-Group:		System/Libraries
+Name:		opusfile
+Version:	0.6
+Release:	1
 License:	BSD
-URL:		http://www.opus-codec.org/
+Group:		System/Libraries
+Url:		http://www.opus-codec.org/
 Source0:	http://downloads.xiph.org/releases/opus/%{name}-%{version}.tar.gz
-BuildRequires:	pkgconfig(ogg) >= 1.3
+BuildRequires:	pkgconfig(ogg)
 BuildRequires:	pkgconfig(openssl)
-BuildRequires:	pkgconfig(opus) >= 1.0.1
+BuildRequires:	pkgconfig(opus)
 
 %description
 libopusfile provides a high-level API for decoding and seeking 
@@ -22,35 +27,51 @@ decoded with a single output format, even if the channel count changes).
 (including seeking).
 * Support for both random access and streaming data sources.
 
-%define major 0
-%define libname %mklibname %name %major
+#----------------------------------------------------------------------------
 
-%package -n %libname
-Summary: A high-level API for decoding and seeking within .opus files
-Group: System/Libraries
+%package -n %{libname}
+Summary:	Shared library for %{name}
+Group:		System/Libraries
 
-%description -n %libname
-libopusfile provides a high-level API for decoding and seeking
-within .opus files. It includes:
-* Support for all files with at least one Opus stream (including
-multichannel files or Ogg files where Opus is muxed with something else).
-* Full support, including seeking, for chained files.
-* A simple stereo downmixing API (allowing chained files to be
-decoded with a single output format, even if the channel count changes).
-* Support for reading from a file, memory buffer, or over HTTP(S)
-(including seeking).
-* Support for both random access and streaming data sources.
+%description -n %{libname}
+Shared library for %{name}.
 
-%define develname %mklibname -d %{name}
+%files -n %{libname}
+%doc COPYING AUTHORS
+%{_libdir}/libopusfile.so.%{major}*
 
-%package -n %{develname}
-Summary: Development package for %{name}
-Group: Development/C
-Requires: %{libname} = %{version}
-Provides: %{name}-devel = %{version}
+#----------------------------------------------------------------------------
 
-%description -n %{develname}
+%package -n %{liburl}
+Summary:	Shared library for %{name}
+Group:		System/Libraries
+Conflicts:	%{_lib}opusfile0 < 0.6
+
+%description -n %{liburl}
+Shared library for %{name}.
+
+%files -n %{liburl}
+%{_libdir}/libopusurl.so.%{major}*
+
+#----------------------------------------------------------------------------
+
+%package -n %{devname}
+Summary:	Development package for %{name}
+Group:		Development/C
+Requires:	%{libname} = %{EVRD}
+Requires:	%{liburl} = %{EVRD}
+Provides:	%{name}-devel = %{EVRD}
+
+%description -n %{devname}
 Files for development with %{name}.
+
+%files -n %{devname}
+%doc %{_docdir}/%{name}
+%{_includedir}/opus/opusfile*
+%{_libdir}/pkgconfig/*.pc
+%{_libdir}/libopus*.so
+
+#----------------------------------------------------------------------------
 
 %prep
 %setup -q
@@ -62,16 +83,3 @@ Files for development with %{name}.
 %install
 %makeinstall_std
 
-#Remove libtool archives.
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
-
-%files -n %{libname}
-%doc COPYING AUTHORS
-%{_libdir}/libopus*.so.%{major}
-%{_libdir}/libopus*.so.%{major}.*
-
-%files -n %{develname}
-%doc %{_docdir}/%{name}
-%{_includedir}/opus/opusfile*
-%{_libdir}/pkgconfig/*.pc
-%{_libdir}/libopus*.so
