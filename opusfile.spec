@@ -5,7 +5,7 @@
 
 Summary:	A high-level API for decoding and seeking within .opus files
 Name:		opusfile
-Version:	0.8
+Version:	0.10
 Release:	1
 License:	BSD
 Group:		System/Libraries
@@ -16,7 +16,7 @@ BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(opus)
 
 %description
-libopusfile provides a high-level API for decoding and seeking 
+libopusfile provides a high-level API for decoding and seeking
 within .opus files. It includes:
 * Support for all files with at least one Opus stream (including
 multichannel files or Ogg files where Opus is muxed with something else).
