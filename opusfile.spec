@@ -5,8 +5,8 @@
 
 Summary:	A high-level API for decoding and seeking within .opus files
 Name:		opusfile
-Version:	0.10
-Release:	2
+Version:	0.11
+Release:	1
 License:	BSD
 Group:		System/Libraries
 Url:		http://www.opus-codec.org/
