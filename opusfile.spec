@@ -5,7 +5,7 @@
 
 Summary:	A high-level API for decoding and seeking within .opus files
 Name:		opusfile
-Version:	0.11
+Version:	0.12
 Release:	1
 License:	BSD
 Group:		System/Libraries
@@ -77,9 +77,9 @@ Files for development with %{name}.
 %setup -q
 
 %build
-%configure2_5x --disable-static
-%make
+%configure --disable-static
+%make_build
 
 %install
-%makeinstall_std
+%make_install
 
