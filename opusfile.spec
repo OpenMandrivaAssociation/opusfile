@@ -9,7 +9,7 @@ Version:	0.12
 Release:	2
 License:	BSD
 Group:		System/Libraries
-Url:		http://www.opus-codec.org/
+Url:		https://www.opus-codec.org/
 Source0:	http://downloads.xiph.org/releases/opus/%{name}-%{version}.tar.gz
 BuildRequires:	pkgconfig(ogg)
 BuildRequires:	pkgconfig(openssl)
